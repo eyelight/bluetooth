@@ -27,7 +27,7 @@ func main() {
 	println("advertising...")
 	address, _ := adapter.Address()
 	for {
-		println("GAP Device:", deviceName, "is advertising wth LocalName:", advertisedName, "with address", address.MAC.String())
+		println("GAP Device:", string(deviceName[:]), "is advertising wth LocalName:", advertisedName, "with address", address.MAC.String())
 		time.Sleep(time.Second)
 	}
 }
