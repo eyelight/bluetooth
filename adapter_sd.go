@@ -127,3 +127,14 @@ func DisableInterrupts() uintptr {
 func RestoreInterrupts(mask uintptr) {
 	C.sd_nvic_critical_region_exit(uint8(mask))
 }
+
+// DeviceName reads the SoftDevice's current GAP name into slice n,
+// returning a non-nil error if C had a nonzero error
+func DeviceName(n []byte) error {
+	lenMax := C.uint16_t(len(n))
+	errCode := C.sd_ble_gap_device_name_get((*C.uint8_t)(unsafe.Pointer(&n[0])), &lenMax)
+	if errCode != 0 {
+		return Error(errCode)
+	}
+	return nil
+}
